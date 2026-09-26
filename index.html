@@ -1,2089 +1,2023 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+\<!DOCTYPE html>
+\<html lang="en">
+\<head>
+&#x20;   \<meta charset="UTF-8">
+&#x20;   \<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pyari Chanda</title>
+```
+<title>Pyari Chanda</title>
 
-    <!-- =====================================================
-         FONTS
-    ====================================================== -->
+<!-- =====================================================
+     FONTS
+====================================================== -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 
-    <style>
+<style>
 
-        /* =====================================================
-           EASY CUSTOMIZATION
-        ===================================================== */
+    /* =====================================================
+       EASY CUSTOMIZATION
+    ===================================================== */
 
-        :root {
+    :root {
 
-            --cream: #171416;
-            --cream-dark: #211b1d;
-            --white: #1d191b;
+        --cream: #171416;
+        --cream-dark: #211b1d;
+        --white: #1d191b;
 
-            --rose: #c89494;
-            --rose-light: #9f6f73;
-            --burgundy: #8f505b;
+        --rose: #c89494;
+        --rose-light: #9f6f73;
+        --burgundy: #8f505b;
 
-            --dark: #f1e8e3;
-            --muted: #b7a9a6;
+        --dark: #f1e8e3;
+        --muted: #b7a9a6;
 
-            --serif: "Cormorant Garamond", serif;
-            --sans: "Inter", sans-serif;
+        --serif: "Cormorant Garamond", serif;
+        --sans: "Inter", sans-serif;
 
-            --radius: 18px;
+        --radius: 18px;
 
-            --transition:
-                0.5s cubic-bezier(.2,.7,.2,1);
+        --transition:
+            0.5s cubic-bezier(.2,.7,.2,1);
+    }
+
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+
+        background: var(--cream);
+
+        color: var(--dark);
+
+        font-family: var(--sans);
+
+        overflow-x: hidden;
+    }
+
+    body.locked {
+        overflow: hidden;
+    }
+
+    img {
+
+        width: 100%;
+
+        display: block;
+
+        object-fit: cover;
+    }
+
+    button,
+    input {
+        font: inherit;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+
+    /* =====================================================
+       LOGIN SCREEN
+    ===================================================== */
+
+    .login-screen {
+
+        position: fixed;
+
+        inset: 0;
+
+        z-index: 9999;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        background:
+
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(159,111,115,.18),
+                transparent 30%
+            ),
+
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(110,61,69,.22),
+                transparent 30%
+            ),
+
+            #171416;
+
+        transition:
+            opacity 1s ease,
+            visibility 1s ease;
+    }
+
+    .login-screen.hidden {
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        pointer-events: none;
+    }
+
+
+    /* =====================================================
+       LOGIN GLOW
+    ===================================================== */
+
+    .login-glow {
+
+        position: absolute;
+
+        width: 500px;
+
+        height: 500px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(159,111,115,.12);
+
+        filter: blur(90px);
+
+        animation:
+            glowMove 8s infinite alternate ease-in-out;
+    }
+
+    @keyframes glowMove {
+
+        from {
+            transform:
+                translate(-100px, -50px);
         }
 
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        to {
+            transform:
+                translate(100px, 80px);
         }
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
 
-        body {
+    /* =====================================================
+       FLOATING HEARTS
+    ===================================================== */
 
-            background: var(--cream);
+    .floating-heart {
 
-            color: var(--dark);
+        position: absolute;
 
-            font-family: var(--sans);
+        color:
+            rgba(200,148,148,.15);
 
-            overflow-x: hidden;
-        }
+        font-size: 20px;
 
-        body.locked {
-            overflow: hidden;
-        }
+        animation:
+            floatHeart 8s infinite ease-in-out;
+    }
 
-        img {
+    .heart-1 {
+        top: 18%;
+        left: 15%;
+    }
 
-            width: 100%;
+    .heart-2 {
 
-            display: block;
+        top: 70%;
+        left: 20%;
 
-            object-fit: cover;
-        }
+        animation-delay: 2s;
+    }
 
-        button,
-        input {
-            font: inherit;
-        }
+    .heart-3 {
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+        top: 25%;
+        right: 18%;
 
+        animation-delay: 4s;
+    }
 
-        /* =====================================================
-           LOGIN SCREEN
-        ===================================================== */
+    .heart-4 {
 
-        .login-screen {
+        bottom: 15%;
+        right: 25%;
 
-            position: fixed;
+        animation-delay: 1s;
+    }
 
-            inset: 0;
+    @keyframes floatHeart {
 
-            z-index: 9999;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            background:
-
-                radial-gradient(
-                    circle at 20% 20%,
-                    rgba(159,111,115,.18),
-                    transparent 30%
-                ),
-
-                radial-gradient(
-                    circle at 80% 80%,
-                    rgba(110,61,69,.22),
-                    transparent 30%
-                ),
-
-                #171416;
-
-            transition:
-                opacity 1s ease,
-                visibility 1s ease;
-        }
-
-        .login-screen.hidden {
-
-            opacity: 0;
-
-            visibility: hidden;
-
-            pointer-events: none;
-        }
-
-
-        /* =====================================================
-           LOGIN GLOW
-        ===================================================== */
-
-        .login-glow {
-
-            position: absolute;
-
-            width: 500px;
-
-            height: 500px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(159,111,115,.12);
-
-            filter: blur(90px);
-
-            animation:
-                glowMove 8s infinite alternate ease-in-out;
-        }
-
-        @keyframes glowMove {
-
-            from {
-                transform:
-                    translate(-100px, -50px);
-            }
-
-            to {
-                transform:
-                    translate(100px, 80px);
-            }
-        }
-
-
-        /* =====================================================
-           FLOATING HEARTS
-        ===================================================== */
-
-        .floating-heart {
-
-            position: absolute;
-
-            color:
-                rgba(200,148,148,.15);
-
-            font-size: 20px;
-
-            animation:
-                floatHeart 8s infinite ease-in-out;
-        }
-
-        .heart-1 {
-            top: 18%;
-            left: 15%;
-        }
-
-        .heart-2 {
-
-            top: 70%;
-            left: 20%;
-
-            animation-delay: 2s;
-        }
-
-        .heart-3 {
-
-            top: 25%;
-            right: 18%;
-
-            animation-delay: 4s;
-        }
-
-        .heart-4 {
-
-            bottom: 15%;
-            right: 25%;
-
-            animation-delay: 1s;
-        }
-
-        @keyframes floatHeart {
-
-            0%,
-            100% {
-
-                transform:
-                    translateY(0)
-                    rotate(0deg);
-            }
-
-            50% {
-
-                transform:
-                    translateY(-30px)
-                    rotate(8deg);
-            }
-        }
-
-
-        /* =====================================================
-           LOGIN CARD
-        ===================================================== */
-
-        .login-card {
-
-            position: relative;
-
-            z-index: 2;
-
-            width:
-                min(430px, calc(100% - 40px));
-
-            padding: 55px 45px;
-
-            background:
-                rgba(36,29,31,.82);
-
-            backdrop-filter:
-                blur(20px);
-
-            border:
-                1px solid rgba(255,255,255,.08);
-
-            border-radius: 28px;
-
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.45);
-
-            text-align: center;
-
-            animation:
-                loginEntrance
-                1.2s
-                cubic-bezier(.2,.8,.2,1);
-        }
-
-        @keyframes loginEntrance {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(40px)
-                    scale(.96);
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
-
-
-        .login-symbol {
-
-            width: 55px;
-
-            height: 55px;
-
-            margin:
-                0 auto 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border:
-                1px solid var(--rose-light);
-
-            border-radius: 50%;
-
-            color:
-                var(--rose);
-
-            font-size: 22px;
-        }
-
-
-        .login-card h1 {
-
-            font-family:
-                var(--serif);
-
-            font-size: 48px;
-
-            font-weight: 500;
-
-            line-height: 1;
-
-            margin-bottom: 12px;
-        }
-
-
-        .login-card > p {
-
-            color:
-                var(--muted);
-
-            font-size: 13px;
-
-            letter-spacing: .08em;
-
-            margin-bottom: 35px;
-        }
-
-
-        /* =====================================================
-           INPUTS
-        ===================================================== */
-
-        .input-group {
-
-            margin-bottom: 16px;
-
-            text-align: left;
-        }
-
-        .input-group label {
-
-            display: block;
-
-            margin-bottom: 8px;
-
-            font-size: 11px;
-
-            letter-spacing: .12em;
-
-            text-transform: uppercase;
-
-            color:
-                var(--muted);
-        }
-
-        .input-group input {
-
-            width: 100%;
-
-            padding: 15px 17px;
-
-            border:
-                1px solid rgba(255,255,255,.10);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.045);
-
-            color:
-                #f1e8e3;
-
-            outline: none;
-
-            transition:
-                var(--transition);
-        }
-
-        .input-group input::placeholder {
-
-            color:
-                rgba(241,232,227,.35);
-        }
-
-        .input-group input:focus {
-
-            border-color:
-                var(--rose);
-
-            box-shadow:
-                0 0 0 4px
-                rgba(200,148,148,.10);
-        }
-
-
-        /* =====================================================
-           LOGIN BUTTON
-        ===================================================== */
-
-        .login-button {
-
-            width: 100%;
-
-            margin-top: 12px;
-
-            padding: 16px;
-
-            border: none;
-
-            border-radius: 12px;
-
-            background:
-                var(--burgundy);
-
-            color:
-                white;
-
-            cursor: pointer;
-
-            transition:
-                var(--transition);
-        }
-
-        .login-button:hover {
+        0%,
+        100% {
 
             transform:
-                translateY(-2px);
-
-            background:
-                #9d5964;
-
-            box-shadow:
-                0 12px 25px
-                rgba(110,61,69,.3);
+                translateY(0)
+                rotate(0deg);
         }
 
+        50% {
 
-        .login-error {
-
-            min-height: 20px;
-
-            margin-top: 14px;
-
-            color:
-                #d98d8d;
-
-            font-size: 12px;
+            transform:
+                translateY(-30px)
+                rotate(8deg);
         }
+    }
 
 
-        /* =====================================================
-           MAIN WEBSITE
-        ===================================================== */
+    /* =====================================================
+       LOGIN CARD
+    ===================================================== */
 
-        #website {
+    .login-card {
+
+        position: relative;
+
+        z-index: 2;
+
+        width:
+            min(430px, calc(100% - 40px));
+
+        padding: 55px 45px;
+
+        background:
+            rgba(36,29,31,.82);
+
+        backdrop-filter:
+            blur(20px);
+
+        border:
+            1px solid rgba(255,255,255,.08);
+
+        border-radius: 28px;
+
+        box-shadow:
+            0 30px 80px rgba(0,0,0,.45);
+
+        text-align: center;
+
+        animation:
+            loginEntrance
+            1.2s
+            cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes loginEntrance {
+
+        from {
 
             opacity: 0;
 
-            transition:
-                opacity 1s ease;
+            transform:
+                translateY(40px)
+                scale(.96);
         }
 
-        #website.visible {
+        to {
+
             opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+    }
+
+
+    .login-symbol {
+
+        width: 55px;
+
+        height: 55px;
+
+        margin:
+            0 auto 25px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border:
+            1px solid var(--rose-light);
+
+        border-radius: 50%;
+
+        color:
+            var(--rose);
+
+        font-size: 22px;
+    }
+
+
+    .login-symbol img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+    .login-card h1 {
+
+        font-family:
+            var(--serif);
+
+        font-size: 48px;
+
+        font-weight: 500;
+
+        line-height: 1;
+
+        margin-bottom: 12px;
+    }
+
+
+    .login-card > p {
+
+        color:
+            var(--muted);
+
+        font-size: 13px;
+
+        letter-spacing: .08em;
+
+        margin-bottom: 35px;
+    }
+
+
+    /* =====================================================
+       INPUTS
+    ===================================================== */
+
+    .input-group {
+
+        margin-bottom: 16px;
+
+        text-align: left;
+    }
+
+    .input-group label {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-size: 11px;
+
+        letter-spacing: .12em;
+
+        text-transform: uppercase;
+
+        color:
+            var(--muted);
+    }
+
+    .input-group input {
+
+        width: 100%;
+
+        padding: 15px 17px;
+
+        border:
+            1px solid rgba(255,255,255,.10);
+
+        border-radius: 12px;
+
+        background:
+            rgba(255,255,255,.045);
+
+        color:
+            #f1e8e3;
+
+        outline: none;
+
+        transition:
+            var(--transition);
+    }
+
+    .input-group input::placeholder {
+
+        color:
+            rgba(241,232,227,.35);
+    }
+
+    .input-group input:focus {
+
+        border-color:
+            var(--rose);
+
+        box-shadow:
+            0 0 0 4px
+            rgba(200,148,148,.10);
+    }
+
+
+    /* =====================================================
+       LOGIN BUTTON
+    ===================================================== */
+
+    .login-button {
+
+        width: 100%;
+
+        margin-top: 12px;
+
+        padding: 16px;
+
+        border: none;
+
+        border-radius: 12px;
+
+        background:
+            var(--burgundy);
+
+        color:
+            white;
+
+        cursor: pointer;
+
+        transition:
+            var(--transition);
+    }
+
+    .login-button:hover {
+
+        transform:
+            translateY(-2px);
+
+        background:
+            #9d5964;
+
+        box-shadow:
+            0 12px 25px
+            rgba(110,61,69,.3);
+    }
+
+
+    .login-error {
+
+        min-height: 20px;
+
+        margin-top: 14px;
+
+        color:
+            #d98d8d;
+
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       MAIN WEBSITE
+    ===================================================== */
+
+    #website {
+
+        opacity: 0;
+
+        transition:
+            opacity 1s ease;
+    }
+
+    #website.visible {
+        opacity: 1;
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    .navbar {
+
+        position: fixed;
+
+        z-index: 100;
+
+        top: 25px;
+
+        left: 50%;
+
+        transform:
+            translateX(-50%);
+
+        width:
+            min(760px, calc(100% - 40px));
+
+        padding: 13px 18px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 8px;
+
+        background:
+            rgba(29,25,27,.78);
+
+        backdrop-filter:
+            blur(15px);
+
+        border:
+            1px solid
+            rgba(255,255,255,.08);
+
+        border-radius: 50px;
+
+        box-shadow:
+            0 12px 40px
+            rgba(0,0,0,.30);
+    }
+
+    .navbar a {
+
+        padding:
+            9px 16px;
+
+        font-size: 11px;
+
+        letter-spacing: .08em;
+
+        text-transform: uppercase;
+
+        color:
+            var(--muted);
+
+        border-radius: 30px;
+
+        transition:
+            var(--transition);
+    }
+
+    .navbar a:hover {
+
+        color:
+            var(--rose);
+
+        background:
+            rgba(200,148,148,.10);
+    }
+
+
+    /* =====================================================
+       GENERAL
+    ===================================================== */
+
+    section {
+
+        position: relative;
+
+        padding:
+            130px 7%;
+    }
+
+    .container {
+
+        max-width: 1200px;
+
+        margin: auto;
+    }
+
+    .eyebrow {
+
+        margin-bottom: 15px;
+
+        color:
+            var(--rose);
+
+        font-size: 11px;
+
+        font-weight: 600;
+
+        letter-spacing: .25em;
+
+        text-transform: uppercase;
+    }
+
+    .section-title {
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            clamp(45px, 6vw, 82px);
+
+        font-weight: 500;
+
+        line-height: .95;
+    }
+
+    .section-subtitle {
+
+        margin-top: 18px;
+
+        color:
+            var(--muted);
+
+        font-family:
+            var(--serif);
+
+        font-size: 24px;
+
+        font-style: italic;
+    }
+
+    .placeholder-text {
+
+        color:
+            var(--muted);
+
+        font-size: 15px;
+
+        line-height: 1.9;
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+
+        min-height: 100vh;
+
+        padding:
+            120px 7% 50px;
+
+        display: flex;
+
+        align-items: center;
+    }
+
+    .hero-content {
+
+        width: 100%;
+
+        max-width: 1150px;
+
+        margin: auto;
+
+        text-align: center;
+    }
+
+
+    .hero-image {
+
+        width:
+            min(850px, 90%);
+
+        aspect-ratio:
+            16 / 8;
+
+        margin:
+            0 auto 55px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #292124,
+                #211b1d
+            );
+
+        border:
+            1px solid
+            rgba(255,255,255,.07);
+
+        border-radius: 24px;
+
+        color:
+            var(--muted);
+
+        font-family:
+            var(--serif);
+
+        font-size: 24px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 30px 70px
+            rgba(0,0,0,.35);
+
+        transition:
+            var(--transition);
+    }
+
+    .hero-image:hover {
+
+        transform:
+            translateY(-5px);
+
+        box-shadow:
+            0 40px 80px
+            rgba(0,0,0,.45);
+    }
+
+
+    .hero-image img {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        cursor: pointer;
+
+        transition:
+            transform .5s ease;
+    }
+
+    .hero-image img:hover {
+
+        transform:
+            scale(1.02);
+    }
+
+
+    .hero h3 {
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            clamp(45px, 7vw, 90px);
+
+        font-weight: 500;
+
+        line-height: .95;
+
+        margin-bottom: 30px;
+    }
+
+    .hero-description {
+
+        max-width: 620px;
+
+        margin: auto;
+
+        color:
+            var(--muted);
+
+        font-size: 15px;
+
+        line-height: 1.9;
+    }
+
+
+    .scroll-indicator {
+
+        display: block;
+
+        margin-top: 55px;
+
+        color:
+            var(--muted);
+
+        font-size: 11px;
+
+        letter-spacing: .15em;
+
+        text-transform: uppercase;
+
+        animation:
+            scrollFloat
+            2s infinite ease-in-out;
+    }
+
+    @keyframes scrollFloat {
+
+        0%,
+        100% {
+            transform:
+                translateY(0);
         }
 
+        50% {
+            transform:
+                translateY(7px);
+        }
+    }
 
-        /* =====================================================
-           NAVIGATION
-        ===================================================== */
+
+    /* =====================================================
+       JOOTAYY SECTION
+    ===================================================== */
+
+    .story-split {
+
+        background:
+            #1d191b;
+    }
+
+    .split-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 90px;
+
+        align-items: center;
+    }
+
+    .story-image {
+
+        aspect-ratio:
+            4 / 5;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #292124,
+                #211b1d
+            );
+
+        border-radius:
+            var(--radius);
+
+        color:
+            var(--muted);
+
+        font-family:
+            var(--serif);
+
+        font-size: 22px;
+
+        overflow: hidden;
+
+        border:
+            1px solid
+            rgba(255,255,255,.06);
+
+        transition:
+            var(--transition);
+    }
+
+    .story-image:hover {
+
+        transform:
+            scale(.98);
+
+        box-shadow:
+            0 25px 60px
+            rgba(0,0,0,.3);
+    }
+
+    .story-image img {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        cursor: pointer;
+
+        transition:
+            transform .5s ease;
+    }
+
+    .story-image img:hover {
+
+        transform:
+            scale(1.03);
+    }
+
+    .story-copy {
+
+        max-width:
+            500px;
+    }
+
+    .story-copy .section-title {
+
+        margin-bottom:
+            25px;
+    }
+
+    .story-copy .placeholder-text {
+
+        margin-top:
+            30px;
+    }
+
+
+    /* =====================================================
+       OUR STORY GALLERY
+    ===================================================== */
+
+    .gallery-section {
+
+        text-align:
+            center;
+    }
+
+    .gallery-intro {
+
+        max-width:
+            650px;
+
+        margin:
+            30px auto 60px;
+    }
+
+    .gallery {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap:
+            20px;
+    }
+
+    .gallery-item {
+
+        aspect-ratio:
+            4 / 5;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #292124,
+                #211b1d
+            );
+
+        border-radius:
+            var(--radius);
+
+        color:
+            var(--muted);
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            20px;
+
+        overflow:
+            hidden;
+
+        border:
+            1px solid
+            rgba(255,255,255,.06);
+
+        transition:
+            var(--transition);
+    }
+
+    .gallery-item:nth-child(2) {
+
+        transform:
+            translateY(40px);
+    }
+
+    .gallery-item:hover {
+
+        transform:
+            translateY(-8px);
+
+        box-shadow:
+            0 20px 40px
+            rgba(0,0,0,.35);
+    }
+
+    .gallery-item:nth-child(2):hover {
+
+        transform:
+            translateY(30px);
+    }
+
+    .gallery-item img {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        cursor: pointer;
+
+        transition:
+            transform .5s ease;
+    }
+
+    .gallery-item img:hover {
+
+        transform:
+            scale(1.04);
+    }
+
+
+    /* =====================================================
+       SMALL MEMORY GALLERY
+    ===================================================== */
+
+    .small-gallery-section {
+
+        padding-top:
+            80px;
+
+        padding-bottom:
+            80px;
+
+        text-align:
+            center;
+    }
+
+    .small-gallery {
+
+        display:
+            grid;
+
+        grid-template-columns:
+            repeat(5, 1fr);
+
+        gap:
+            14px;
+
+        margin-top:
+            45px;
+    }
+
+    .small-gallery-item {
+
+        aspect-ratio:
+            1 / 1;
+
+        overflow:
+            hidden;
+
+        border-radius:
+            14px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.06);
+
+        background:
+            linear-gradient(
+                135deg,
+                #292124,
+                #211b1d
+            );
+
+        cursor:
+            pointer;
+
+        transition:
+            var(--transition);
+    }
+
+    .small-gallery-item:hover {
+
+        transform:
+            translateY(-5px);
+
+        box-shadow:
+            0 15px 35px
+            rgba(0,0,0,.35);
+    }
+
+    .small-gallery-item img {
+
+        width:
+            100%;
+
+        height:
+            100%;
+
+        object-fit:
+            cover;
+
+        transition:
+            transform .5s ease;
+    }
+
+    .small-gallery-item:hover img {
+
+        transform:
+            scale(1.08);
+    }
+
+
+    /* =====================================================
+       FINAL SECTION
+    ===================================================== */
+
+    .final-section {
+
+        min-height:
+            100vh;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        text-align:
+            center;
+    }
+
+    .final-content {
+
+        width:
+            100%;
+    }
+
+    .final-image {
+
+        position:
+            relative;
+
+        width:
+            min(800px, 90%);
+
+        aspect-ratio:
+            16 / 8;
+
+        margin:
+            0 auto 70px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #292124,
+                #211b1d
+            );
+
+        border-radius:
+            24px;
+
+        color:
+            var(--muted);
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            24px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.06);
+
+        overflow:
+            hidden;
+    }
+
+    .final-image img {
+
+        width:
+            100%;
+
+        height:
+            100%;
+
+        object-fit:
+            cover;
+
+        cursor:
+            pointer;
+
+        transition:
+            transform .6s ease;
+    }
+
+    .final-image img:hover {
+
+        transform:
+            scale(1.03);
+    }
+
+    .final-section h2 {
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            clamp(60px, 9vw, 120px);
+
+        font-weight:
+            500;
+
+        line-height:
+            .85;
+    }
+
+    .final-section p {
+
+        max-width:
+            650px;
+
+        margin:
+            35px auto 0;
+
+        color:
+            var(--muted);
+
+        line-height:
+            1.9;
+    }
+
+    /* =====================================================
+       PROTECTED FINAL MESSAGE
+    ===================================================== */
+
+    .protected-message {
+        margin-top: 45px;
+    }
+
+    .protected-lock {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 28px;
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 18px;
+        background: rgba(255,255,255,.035);
+    }
+
+    .protected-lock h3 {
+        font-family: var(--serif);
+        font-size: 32px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .protected-lock p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .protected-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 12px;
+        background: rgba(255,255,255,.045);
+        color: #f1e8e3;
+        outline: none;
+        text-align: center;
+    }
+
+    .protected-input:focus {
+        border-color: var(--rose);
+        box-shadow: 0 0 0 4px rgba(200,148,148,.10);
+    }
+
+    .protected-button {
+        width: 100%;
+        margin-top: 12px;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: var(--burgundy);
+        color: white;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .protected-button:hover {
+        transform: translateY(-2px);
+        background: #9d5964;
+    }
+
+    .protected-error {
+        min-height: 20px;
+        margin-top: 12px;
+        color: #d98d8d;
+        font-size: 12px;
+    }
+
+    .protected-content {
+        display: none;
+        margin-top: 45px;
+        text-align: left;
+    }
+
+    .protected-content.unlocked {
+        display: block;
+    }
+
+    .protected-content p {
+        max-width: 650px;
+        margin: 0 auto;
+        color: var(--muted);
+        line-height: 1.9;
+        white-space: pre-line;
+    }
+
+
+    .closing-message {
+
+        margin-top:
+            70px;
+
+        font-family:
+            var(--serif);
+
+        font-size:
+            30px;
+
+        font-style:
+            italic;
+
+        color:
+            var(--rose);
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+
+        padding:
+            30px;
+
+        text-align:
+            center;
+
+        background:
+            #0e0c0d;
+
+        color:
+            rgba(241,232,227,.55);
+
+        font-size:
+            11px;
+
+        letter-spacing:
+            .08em;
+    }
+
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    .reveal {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(40px);
+
+        transition:
+            opacity 1s ease,
+            transform 1s
+            cubic-bezier(.2,.7,.2,1);
+    }
+
+    .reveal.active {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+    }
+
+
+    /* =====================================================
+       IMAGE LIGHTBOX
+    ===================================================== */
+
+    .lightbox {
+
+        position:
+            fixed;
+
+        inset:
+            0;
+
+        z-index:
+            20000;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        padding:
+            30px;
+
+        background:
+            rgba(0,0,0,.94);
+
+        opacity:
+            0;
+
+        visibility:
+            hidden;
+
+        pointer-events:
+            none;
+
+        transition:
+            opacity .35s ease,
+            visibility .35s ease;
+    }
+
+    .lightbox.active {
+
+        opacity:
+            1;
+
+        visibility:
+            visible;
+
+        pointer-events:
+            auto;
+    }
+
+    .lightbox img {
+
+        width:
+            auto;
+
+        max-width:
+            92vw;
+
+        max-height:
+            88vh;
+
+        object-fit:
+            contain;
+
+        border-radius:
+            8px;
+
+        box-shadow:
+            0 30px 100px
+            rgba(0,0,0,.75);
+
+        transform:
+            scale(.94);
+
+        transition:
+            transform .35s ease;
+    }
+
+    .lightbox.active img {
+
+        transform:
+            scale(1);
+    }
+
+    .lightbox-close {
+
+        position:
+            absolute;
+
+        top:
+            25px;
+
+        right:
+            35px;
+
+        width:
+            50px;
+
+        height:
+            50px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        color:
+            white;
+
+        font-size:
+            40px;
+
+        font-weight:
+            200;
+
+        cursor:
+            pointer;
+
+        z-index:
+            2;
+
+        transition:
+            .3s ease;
+    }
+
+    .lightbox-close:hover {
+
+        color:
+            var(--rose);
+
+        transform:
+            rotate(90deg);
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 800px) {
 
         .navbar {
 
-            position: fixed;
-
-            z-index: 100;
-
-            top: 25px;
-
-            left: 50%;
-
-            transform:
-                translateX(-50%);
+            top:
+                15px;
 
             width:
-                min(760px, calc(100% - 40px));
+                calc(100% - 25px);
 
-            padding: 13px 18px;
+            justify-content:
+                space-between;
 
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            gap: 8px;
-
-            background:
-                rgba(29,25,27,.78);
-
-            backdrop-filter:
-                blur(15px);
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 50px;
-
-            box-shadow:
-                0 12px 40px
-                rgba(0,0,0,.30);
+            padding:
+                8px;
         }
 
         .navbar a {
 
             padding:
-                9px 16px;
+                9px 8px;
 
-            font-size: 11px;
-
-            letter-spacing: .08em;
-
-            text-transform: uppercase;
-
-            color:
-                var(--muted);
-
-            border-radius: 30px;
-
-            transition:
-                var(--transition);
+            font-size:
+                8px;
         }
 
-        .navbar a:hover {
-
-            color:
-                var(--rose);
-
-            background:
-                rgba(200,148,148,.10);
-        }
-
-
-        /* =====================================================
-           GENERAL
-        ===================================================== */
 
         section {
 
-            position: relative;
-
             padding:
-                130px 7%;
+                90px 6%;
         }
 
-        .container {
-
-            max-width: 1200px;
-
-            margin: auto;
-        }
-
-        .eyebrow {
-
-            margin-bottom: 15px;
-
-            color:
-                var(--rose);
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            letter-spacing: .25em;
-
-            text-transform: uppercase;
-        }
-
-        .section-title {
-
-            font-family:
-                var(--serif);
-
-            font-size:
-                clamp(45px, 6vw, 82px);
-
-            font-weight: 500;
-
-            line-height: .95;
-        }
-
-        .section-subtitle {
-
-            margin-top: 18px;
-
-            color:
-                var(--muted);
-
-            font-family:
-                var(--serif);
-
-            font-size: 24px;
-
-            font-style: italic;
-        }
-
-        .placeholder-text {
-
-            color:
-                var(--muted);
-
-            font-size: 15px;
-
-            line-height: 1.9;
-        }
-
-
-        /* =====================================================
-           HERO
-        ===================================================== */
 
         .hero {
 
-            min-height: 100vh;
-
-            padding:
-                120px 7% 50px;
-
-            display: flex;
-
-            align-items: center;
-        }
-
-        .hero-content {
-
-            width: 100%;
-
-            max-width: 1150px;
-
-            margin: auto;
-
-            text-align: center;
+            padding-top:
+                120px;
         }
 
 
         .hero-image {
 
-            width:
-                min(850px, 90%);
-
             aspect-ratio:
-                16 / 8;
+                4 / 5;
 
-            margin:
-                0 auto 55px;
+            width:
+                100%;
 
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    #292124,
-                    #211b1d
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.07);
-
-            border-radius: 24px;
-
-            color:
-                var(--muted);
-
-            font-family:
-                var(--serif);
-
-            font-size: 24px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 30px 70px
-                rgba(0,0,0,.35);
-
-            transition:
-                var(--transition);
-        }
-
-        .hero-image:hover {
-
-            transform:
-                translateY(-5px);
-
-            box-shadow:
-                0 40px 80px
-                rgba(0,0,0,.45);
-        }
-
-
-        .hero-image img {
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            cursor: pointer;
-
-            transition:
-                transform .5s ease;
-        }
-
-        .hero-image img:hover {
-
-            transform:
-                scale(1.02);
+            margin-bottom:
+                40px;
         }
 
 
         .hero h3 {
 
-            font-family:
-                var(--serif);
-
             font-size:
-                clamp(45px, 7vw, 90px);
-
-            font-weight: 500;
-
-            line-height: .95;
-
-            margin-bottom: 30px;
+                55px;
         }
 
-        .hero-description {
-
-            max-width: 620px;
-
-            margin: auto;
-
-            color:
-                var(--muted);
-
-            font-size: 15px;
-
-            line-height: 1.9;
-        }
-
-
-        .scroll-indicator {
-
-            display: block;
-
-            margin-top: 55px;
-
-            color:
-                var(--muted);
-
-            font-size: 11px;
-
-            letter-spacing: .15em;
-
-            text-transform: uppercase;
-
-            animation:
-                scrollFloat
-                2s infinite ease-in-out;
-        }
-
-        @keyframes scrollFloat {
-
-            0%,
-            100% {
-                transform:
-                    translateY(0);
-            }
-
-            50% {
-                transform:
-                    translateY(7px);
-            }
-        }
-
-
-        /* =====================================================
-           JOOTAYY SECTION
-        ===================================================== */
-
-        .story-split {
-
-            background:
-                #1d191b;
-        }
 
         .split-grid {
 
-            display: grid;
-
             grid-template-columns:
-                1fr 1fr;
+                1fr;
 
-            gap: 90px;
-
-            align-items: center;
+            gap:
+                50px;
         }
+
 
         .story-image {
 
             aspect-ratio:
                 4 / 5;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    #292124,
-                    #211b1d
-                );
-
-            border-radius:
-                var(--radius);
-
-            color:
-                var(--muted);
-
-            font-family:
-                var(--serif);
-
-            font-size: 22px;
-
-            overflow: hidden;
-
-            border:
-                1px solid
-                rgba(255,255,255,.06);
-
-            transition:
-                var(--transition);
         }
 
-        .story-image:hover {
-
-            transform:
-                scale(.98);
-
-            box-shadow:
-                0 25px 60px
-                rgba(0,0,0,.3);
-        }
-
-        .story-image img {
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            cursor: pointer;
-
-            transition:
-                transform .5s ease;
-        }
-
-        .story-image img:hover {
-
-            transform:
-                scale(1.03);
-        }
-
-        .story-copy {
-
-            max-width:
-                500px;
-        }
-
-        .story-copy .section-title {
-
-            margin-bottom:
-                25px;
-        }
-
-        .story-copy .placeholder-text {
-
-            margin-top:
-                30px;
-        }
-
-
-        /* =====================================================
-           OUR STORY GALLERY
-        ===================================================== */
-
-        .gallery-section {
-
-            text-align:
-                center;
-        }
-
-        .gallery-intro {
-
-            max-width:
-                650px;
-
-            margin:
-                30px auto 60px;
-        }
 
         .gallery {
 
-            display:
-                grid;
-
             grid-template-columns:
-                repeat(3, 1fr);
+                1fr;
 
             gap:
-                20px;
+                15px;
         }
 
-        .gallery-item {
-
-            aspect-ratio:
-                4 / 5;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    #292124,
-                    #211b1d
-                );
-
-            border-radius:
-                var(--radius);
-
-            color:
-                var(--muted);
-
-            font-family:
-                var(--serif);
-
-            font-size:
-                20px;
-
-            overflow:
-                hidden;
-
-            border:
-                1px solid
-                rgba(255,255,255,.06);
-
-            transition:
-                var(--transition);
-        }
 
         .gallery-item:nth-child(2) {
 
             transform:
-                translateY(40px);
-        }
-
-        .gallery-item:hover {
-
-            transform:
-                translateY(-8px);
-
-            box-shadow:
-                0 20px 40px
-                rgba(0,0,0,.35);
+                none;
         }
 
         .gallery-item:nth-child(2):hover {
 
             transform:
-                translateY(30px);
+                translateY(-8px);
         }
 
-        .gallery-item img {
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            cursor: pointer;
-
-            transition:
-                transform .5s ease;
-        }
-
-        .gallery-item img:hover {
-
-            transform:
-                scale(1.04);
-        }
-
-
-        /* =====================================================
-           SMALL MEMORY GALLERY
-        ===================================================== */
-
-        .small-gallery-section {
-
-            padding-top:
-                80px;
-
-            padding-bottom:
-                80px;
-
-            text-align:
-                center;
-        }
 
         .small-gallery {
 
-            display:
-                grid;
-
             grid-template-columns:
-                repeat(5, 1fr);
+                repeat(3, 1fr);
 
             gap:
-                14px;
-
-            margin-top:
-                45px;
+                10px;
         }
 
-        .small-gallery-item {
-
-            aspect-ratio:
-                1 / 1;
-
-            overflow:
-                hidden;
-
-            border-radius:
-                14px;
-
-            border:
-                1px solid
-                rgba(255,255,255,.06);
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #292124,
-                    #211b1d
-                );
-
-            cursor:
-                pointer;
-
-            transition:
-                var(--transition);
-        }
-
-        .small-gallery-item:hover {
-
-            transform:
-                translateY(-5px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(0,0,0,.35);
-        }
-
-        .small-gallery-item img {
-
-            width:
-                100%;
-
-            height:
-                100%;
-
-            object-fit:
-                cover;
-
-            transition:
-                transform .5s ease;
-        }
-
-        .small-gallery-item:hover img {
-
-            transform:
-                scale(1.08);
-        }
-
-
-        /* =====================================================
-           FINAL SECTION
-        ===================================================== */
-
-        .final-section {
-
-            min-height:
-                100vh;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            text-align:
-                center;
-        }
-
-        .final-content {
-
-            width:
-                100%;
-        }
 
         .final-image {
 
-            position:
-                relative;
-
-            width:
-                min(800px, 90%);
-
             aspect-ratio:
-                16 / 8;
+                4 / 5;
 
-            margin:
-                0 auto 70px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-                    #292124,
-                    #211b1d
-                );
-
-            border-radius:
-                24px;
-
-            color:
-                var(--muted);
-
-            font-family:
-                var(--serif);
-
-            font-size:
-                24px;
-
-            border:
-                1px solid
-                rgba(255,255,255,.06);
-
-            overflow:
-                hidden;
-        }
-
-        .final-image img {
-
-            width:
-                100%;
-
-            height:
-                100%;
-
-            object-fit:
-                cover;
-
-            cursor:
-                pointer;
-
-            transition:
-                transform .6s ease;
-        }
-
-        .final-image img:hover {
-
-            transform:
-                scale(1.03);
-        }
-
-        .final-section h2 {
-
-            font-family:
-                var(--serif);
-
-            font-size:
-                clamp(60px, 9vw, 120px);
-
-            font-weight:
-                500;
-
-            line-height:
-                .85;
-        }
-
-        .final-section p {
-
-            max-width:
-                650px;
-
-            margin:
-                35px auto 0;
-
-            color:
-                var(--muted);
-
-            line-height:
-                1.9;
-        }
-
-        /* =====================================================
-           PROTECTED FINAL MESSAGE
-        ===================================================== */
-
-        .protected-message {
-            margin-top: 45px;
-        }
-
-        .protected-lock {
-            max-width: 520px;
-            margin: 0 auto;
-            padding: 28px;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 18px;
-            background: rgba(255,255,255,.035);
-        }
-
-        .protected-lock h3 {
-            font-family: var(--serif);
-            font-size: 32px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .protected-lock p {
-            margin: 0 0 20px;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.7;
-        }
-
-        .protected-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid rgba(255,255,255,.10);
-            border-radius: 12px;
-            background: rgba(255,255,255,.045);
-            color: #f1e8e3;
-            outline: none;
-            text-align: center;
-        }
-
-        .protected-input:focus {
-            border-color: var(--rose);
-            box-shadow: 0 0 0 4px rgba(200,148,148,.10);
-        }
-
-        .protected-button {
-            width: 100%;
-            margin-top: 12px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: var(--burgundy);
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .protected-button:hover {
-            transform: translateY(-2px);
-            background: #9d5964;
-        }
-
-        .protected-error {
-            min-height: 20px;
-            margin-top: 12px;
-            color: #d98d8d;
-            font-size: 12px;
-        }
-
-        .protected-content {
-            display: none;
-            margin-top: 45px;
-            text-align: left;
-        }
-
-        .protected-content.unlocked {
-            display: block;
-        }
-
-        .protected-content p {
-            max-width: 650px;
-            margin: 0 auto;
-            color: var(--muted);
-            line-height: 1.9;
-            white-space: pre-line;
+            margin-bottom:
+                50px;
         }
 
 
-        .closing-message {
-
-            margin-top:
-                70px;
-
-            font-family:
-                var(--serif);
-
-            font-size:
-                30px;
-
-            font-style:
-                italic;
-
-            color:
-                var(--rose);
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        footer {
+        .login-card {
 
             padding:
-                30px;
+                45px 25px;
+        }
 
-            text-align:
-                center;
 
-            background:
-                #0e0c0d;
-
-            color:
-                rgba(241,232,227,.55);
+        .login-card h1 {
 
             font-size:
-                11px;
-
-            letter-spacing:
-                .08em;
+                42px;
         }
 
-
-        /* =====================================================
-           SCROLL REVEAL
-        ===================================================== */
-
-        .reveal {
-
-            opacity:
-                0;
-
-            transform:
-                translateY(40px);
-
-            transition:
-                opacity 1s ease,
-                transform 1s
-                cubic-bezier(.2,.7,.2,1);
-        }
-
-        .reveal.active {
-
-            opacity:
-                1;
-
-            transform:
-                translateY(0);
-        }
-
-
-        /* =====================================================
-           IMAGE LIGHTBOX
-        ===================================================== */
 
         .lightbox {
 
-            position:
-                fixed;
-
-            inset:
-                0;
-
-            z-index:
-                20000;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
             padding:
-                30px;
-
-            background:
-                rgba(0,0,0,.94);
-
-            opacity:
-                0;
-
-            visibility:
-                hidden;
-
-            pointer-events:
-                none;
-
-            transition:
-                opacity .35s ease,
-                visibility .35s ease;
-        }
-
-        .lightbox.active {
-
-            opacity:
-                1;
-
-            visibility:
-                visible;
-
-            pointer-events:
-                auto;
+                15px;
         }
 
         .lightbox img {
 
-            width:
-                auto;
-
             max-width:
-                92vw;
+                96vw;
 
             max-height:
-                88vh;
-
-            object-fit:
-                contain;
-
-            border-radius:
-                8px;
-
-            box-shadow:
-                0 30px 100px
-                rgba(0,0,0,.75);
-
-            transform:
-                scale(.94);
-
-            transition:
-                transform .35s ease;
-        }
-
-        .lightbox.active img {
-
-            transform:
-                scale(1);
+                82vh;
         }
 
         .lightbox-close {
 
-            position:
-                absolute;
-
             top:
-                25px;
+                15px;
 
             right:
-                35px;
-
-            width:
-                50px;
-
-            height:
-                50px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            color:
-                white;
+                18px;
 
             font-size:
-                40px;
-
-            font-weight:
-                200;
-
-            cursor:
-                pointer;
-
-            z-index:
-                2;
-
-            transition:
-                .3s ease;
+                35px;
         }
 
-        .lightbox-close:hover {
+    }
 
-            color:
-                var(--rose);
 
-            transform:
-                rotate(90deg);
+    @media (max-width: 500px) {
+
+        .small-gallery {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                10px;
         }
 
+    }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+</style>
+```
 
-        @media (max-width: 800px) {
+\</head>
+\<body class="locked">
 
-            .navbar {
+```
+<!-- =====================================================
+     LOGIN SCREEN
+====================================================== -->
 
-                top:
-                    15px;
+<div class="login-screen" id="loginScreen">
 
-                width:
-                    calc(100% - 25px);
+    <div class="login-glow"></div>
 
-                justify-content:
-                    space-between;
+    <div class="floating-heart heart-1">♡</div>
+    <div class="floating-heart heart-2">♡</div>
+    <div class="floating-heart heart-3">♡</div>
+    <div class="floating-heart heart-4">♡</div>
 
-                padding:
-                    8px;
-            }
 
-            .navbar a {
+    <div class="login-card">
 
-                padding:
-                    9px 8px;
+        <div class="login-symbol">
+            <img src="login.jpg" alt="Our memory">
+        </div>
 
-                font-size:
-                    8px;
-            }
 
+        <h1>
+            A little place
+        </h1>
 
-            section {
 
-                padding:
-                    90px 6%;
-            }
+        <p>
+            For Meri Pyari Eshuuuuuu
+        </p>
 
 
-            .hero {
+        <form id="loginForm">
 
-                padding-top:
-                    120px;
-            }
 
+            <div class="input-group">
 
-            .hero-image {
+                <label>
+                    Username (Jo me apko pyar se kahta 🌙)
+                </label>
 
-                aspect-ratio:
-                    4 / 5;
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    autocomplete="off"
+                    required
+                >
 
-                width:
-                    100%;
-
-                margin-bottom:
-                    40px;
-            }
-
-
-            .hero h3 {
-
-                font-size:
-                    55px;
-            }
-
-
-            .split-grid {
-
-                grid-template-columns:
-                    1fr;
-
-                gap:
-                    50px;
-            }
-
-
-            .story-image {
-
-                aspect-ratio:
-                    4 / 5;
-            }
-
-
-            .gallery {
-
-                grid-template-columns:
-                    1fr;
-
-                gap:
-                    15px;
-            }
-
-
-            .gallery-item:nth-child(2) {
-
-                transform:
-                    none;
-            }
-
-            .gallery-item:nth-child(2):hover {
-
-                transform:
-                    translateY(-8px);
-            }
-
-
-            .small-gallery {
-
-                grid-template-columns:
-                    repeat(3, 1fr);
-
-                gap:
-                    10px;
-            }
-
-
-            .final-image {
-
-                aspect-ratio:
-                    4 / 5;
-
-                margin-bottom:
-                    50px;
-            }
-
-
-            .login-card {
-
-                padding:
-                    45px 25px;
-            }
-
-
-            .login-card h1 {
-
-                font-size:
-                    42px;
-            }
-
-
-            .lightbox {
-
-                padding:
-                    15px;
-            }
-
-            .lightbox img {
-
-                max-width:
-                    96vw;
-
-                max-height:
-                    82vh;
-            }
-
-            .lightbox-close {
-
-                top:
-                    15px;
-
-                right:
-                    18px;
-
-                font-size:
-                    35px;
-            }
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            .small-gallery {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-                gap:
-                    10px;
-            }
-
-        }
-
-    </style>
-</head>
-
-
-<body class="locked">
-
-
-    <!-- =====================================================
-         LOGIN SCREEN
-    ====================================================== -->
-
-    <div class="login-screen" id="loginScreen">
-
-        <div class="login-glow"></div>
-
-        <div class="floating-heart heart-1">♡</div>
-        <div class="floating-heart heart-2">♡</div>
-        <div class="floating-heart heart-3">♡</div>
-        <div class="floating-heart heart-4">♡</div>
-
-
-        <div class="login-card">
-
-            <div class="login-symbol">
-                ♡
             </div>
 
 
-            <h1>
-                A little place
-            </h1>
+            <div class="input-group">
 
+                <label>
+                    Password(jo ap mujhe marty hein 🦵👟)
+                </label>
 
-            <p>
-                For Meri Pyari Eshuuuuuu
-            </p>
-
-
-            <form id="loginForm">
-
-
-                <div class="input-group">
-
-                    <label>
-                        Username (Jo me apko pyar se kahta 🌙)
-                    </label>
-
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Enter username"
-                        autocomplete="off"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Password(jo ap mujhe marty hein 🦵👟)
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter password"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    class="login-button"
-                    type="submit"
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required
                 >
-                    Enter our ادھوری story
-                </button>
+
+            </div>
 
 
-                <div
-                    class="login-error"
-                    id="loginError"
-                ></div>
+            <button
+                class="login-button"
+                type="submit"
+            >
+                Enter our ادھوری story
+            </button>
 
 
-            </form>
+            <div
+                class="login-error"
+                id="loginError"
+            ></div>
 
-        </div>
+
+        </form>
 
     </div>
 
-
-
-    <!-- =====================================================
-         MAIN WEBSITE
-    ====================================================== -->
-
-    <div id="website">
-
-
-        <!-- =================================================
-             NAVIGATION
-        ================================================== -->
-
-        <nav class="navbar">
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#story">
-                JOOTAYY
-            </a>
-
-            <a href="#memories">
-                Our Story
-            </a>
-
-            <a href="#final">
-                Final
-            </a>
-
-        </nav>
+</div>
 
 
 
-        <!-- =================================================
-             HERO
-        ================================================== -->
+<!-- =====================================================
+     MAIN WEBSITE
+====================================================== -->
 
-        <section
-            class="hero"
-            id="home"
-        >
-
-            <div class="hero-content">
+<div id="website">
 
 
-                <div class="hero-image">
+    <!-- =================================================
+         NAVIGATION
+    ================================================== -->
+
+    <nav class="navbar">
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#blind-eye">
+            The blind eye
+        </a>
+
+        <a href="#khanjar">
+            KHANJAR
+        </a>
+
+        <a href="#story">
+            JOOTAYY
+        </a>
+
+        <a href="#memories">
+            Our Story
+        </a>
+
+        <a href="#final">
+            Final
+        </a>
+
+    </nav>
+
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+        <div class="hero-content">
+
+
+            <div class="hero-image">
+
+                <img
+                    src="hero.jpg"  alt="Our memory"
+                >
+
+            </div>
+
+
+            <div class="eyebrow">
+
+                HEHE ITTAYY CUTIEE HATH
+
+            </div>
+
+
+            <h3>
+
+                TUMAHARI KAHANI HE HO SKAY TO KAMAL LIKHNA
+
+            </h3>
+
+
+            <p class="hero-description">
+
+                Mera Bacha think about your life me apse aik wada kru ga ka khawb ap 
+                dekhei gy takmeel tk ham dono pohnchain ge
+
+            </p>
+
+
+            <span class="scroll-indicator">
+
+                Scroll to our story ↓
+
+            </span>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         THE BLIND EYE
+    ================================================== -->
+
+    <section
+        class="story-split"
+        id="blind-eye"
+    >
+
+        <div class="container">
+
+            <div class="split-grid reveal">
+
+
+                <div class="story-image">
 
                     <img
-                        src="hero.jpg"  alt="Our memory"
+                        src="blind-eye.jpg"
+                        alt="The blind eye"
                     >
 
                 </div>
 
 
-                <div class="eyebrow">
-
-                    HEHE ITTAYY CUTIEE HATH
-
-                </div>
+                <div class="story-copy">
 
 
-                <h3>
+                    <div class="eyebrow">
 
-                    TUMAHARI KAHANI HE HO SKAY TO KAMAL LIKHNA
-
-                </h3>
-
-
-                <p class="hero-description">
-
-                    Mera Bacha think about your life me apse aik wada kru ga ka khawb ap 
-                    dekhei gy takmeel tk ham dono pohnchain ge
-
-                </p>
-
-
-                <span class="scroll-indicator">
-
-                    Scroll to our story ↓
-
-                </span>
-
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =================================================
-             JOOTAYY
-        ================================================== -->
-
-        <section
-            class="story-split"
-            id="story"
-        >
-
-            <div class="container">
-
-                <div class="split-grid reveal">
-
-
-                    <div class="story-image">
-
-                        <img
-                            src="story.jpg" alt="Our story">
-                            
-                        >
+                        THE BLIND EYE
 
                     </div>
 
 
-                    <div class="story-copy">
+                    <h3 class="section-title">
+
+                        The blind eye
+
+                    </h3>
 
 
-                        <div class="eyebrow">
+                    <div class="section-subtitle">
 
-                            JOOTAYY
-
-                        </div>
-
-
-                        <h3 class="section-title">
-
-                            Baray thudday marayy apne huh
-
-                        </h3>
-
-
-                        <div class="section-subtitle">
-
-                            
-
-                        </div>
-
-
-                        <p class="placeholder-text">
-
-                            
-
-                        </p>
 
 
                     </div>
 
 
-                </div>
-
-            </div>
-
-        </section>
+                    <p class="placeholder-text">
 
 
 
-        <!-- =================================================
-             OUR STORY
-        ================================================== -->
-
-        <section
-            class="gallery-section"
-            id="memories"
-        >
-
-            <div class="container reveal">
-
-
-                <div class="eyebrow">
-
-                    OUR STORY
-
-                </div>
-
-
-                <h3 class="section-title">
-
-                    Dil se likha tha aik aik harf hasnay ka dil kre to parh lena
-
-                </h3>
-
-
-                <div class="section-subtitle">
-
-                  
-
-                </div>
-
-
-                <p class="placeholder-text gallery-intro">
-
-                    
-
-                </p>
-
-
-                <div class="gallery">
-
-
-                    <div class="gallery-item">
-
-                        <img
-                            src="memory-1.jpg"
-                            alt="Memory 1"
-                        >
-
-                    </div>
-
-
-                    <div class="gallery-item">
-
-                        <img
-                            src="memory-2.jpg"
-                            alt="Memory 2"
-                        >
-
-                    </div>
-
-
-                    <div class="gallery-item">
-
-                        <img
-                            src="memory-3.jpg"
-                            alt="Memory 3"
-                        >
-
-                    </div>
+                    </p>
 
 
                 </div>
@@ -2091,234 +2025,468 @@
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
 
-        <!-- =================================================
-             SMALL MEMORY GALLERY
-        ================================================== -->
+    <!-- =================================================
+         KHANJAR
+    ================================================== -->
 
-        <section class="small-gallery-section">
+    <section
+        class="gallery-section"
+        id="khanjar"
+    >
 
-            <div class="container reveal">
-
-                <div class="eyebrow">
-
-                    Pata ni kia kia he dekh lena huh
-
-                </div>
+        <div class="container reveal">
 
 
-                <h2 class="section-title">
+            <div class="eyebrow">
 
-                    
-
-                </h2>
-
-
-                <div class="section-subtitle">
-
-                    
-
-                </div>
-
-
-                <div class="small-gallery">
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-1.jpg"
-                            alt="Memory 1"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-2.jpg"
-                            alt="Memory 2"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-3.jpg"
-                            alt="Memory 3"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-4.jpg"
-                            alt="Memory 4"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-5.jpg"
-                            alt="Memory 5"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-6.jpg"
-                            alt="Memory 6"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-7.jpg"
-                            alt="Memory 7"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-8.jpg"
-                            alt="Memory 8"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-9.jpg"
-                            alt="Memory 9"
-                        >
-
-                    </div>
-
-
-                    <div class="small-gallery-item">
-
-                        <img
-                            src="small-10.jpg"
-                            alt="Memory 10"
-                        >
-
-                    </div>
-
-
-                </div>
+                KHANJAR
 
             </div>
 
-        </section>
+
+            <h3 class="section-title">
+
+                KHANJAR
+
+            </h3>
+
+
+            <div class="section-subtitle">
 
 
 
-        <!-- =================================================
-             FINAL SECTION
-        ================================================== -->
-
-        <section
-            class="final-section"
-            id="final"
-        >
-
-            <div class="container final-content reveal">
-                 <div class="eyebrow">
-
-                    I was making a list hehe
-
-                </div>
+            </div>
 
 
-                <div class="final-image">
+            <p class="placeholder-text gallery-intro">
+
+
+
+            </p>
+
+
+            <div class="gallery">
+
+
+                <div class="gallery-item">
 
                     <img
-                        src="final1.jpg"
-                        alt="Our favorite memory"
+                        src="khanjar-1.jpg"
+                        alt="Khanjar 1"
                     >
 
                 </div>
 
 
-                <div class="eyebrow">
+                <div class="gallery-item">
 
-                    THE END OF THIS STORY OR MAYBE THE BIGGINING OF ANOTHER ONE
+                    <img
+                        src="khanjar-2.jpg"
+                        alt="Khanjar 2"
+                    >
 
                 </div>
 
 
-                <h2>
+                <div class="gallery-item">
 
-                    SORRY MERA BACHAAA
+                    <img
+                        src="khanjar-3.jpg"
+                        alt="Khanjar 3"
+                    >
 
-                </h2>
+                </div>
 
 
-                <div class="protected-message">
+            </div>
 
-                    <div class="protected-lock" id="protectedLock">
 
-                        <h3>
-                            KUCH UN KAHI BATAY
-                        </h3>
+        </div>
 
-                        <p>
-                            I wrote something pr ab mene password laga dia and
-                            seems like it's not meant for you...khairr. Enter the password to continue guess kr sko to parh lena ye me apko kabhi kabhi kahta and it has 4 letters.
-                        </p>
+    </section>
 
-                        <form id="finalPasswordForm">
 
-                            <input
-                                type="password"
-                                id="finalPassword"
-                                class="protected-input"
-                                placeholder="Enter password"
-                                autocomplete="off"
-                                required
-                            >
 
-                            <button
-                                type="submit"
-                                class="protected-button"
-                            >
-                                Unlock my message
-                            </button>
+    <!-- =================================================
+         JOOTAYY
+    ================================================== -->
 
-                            <div
-                                class="protected-error"
-                                id="finalPasswordError"
-                            ></div>
+    <section
+        class="story-split"
+        id="story"
+    >
 
-                        </form>
+        <div class="container">
+
+            <div class="split-grid reveal">
+
+
+                <div class="story-image">
+
+                    <img
+                        src="story.jpg" alt="Our story">
+                        
+                    >
+
+                </div>
+
+
+                <div class="story-copy">
+
+
+                    <div class="eyebrow">
+
+                        JOOTAYY
 
                     </div>
 
-                    <div class="protected-content" id="protectedContent">
 
-                        <p>
+                    <h3 class="section-title">
+
+                        Baray thudday marayy apne huh
+
+                    </h3>
+
+
+                    <div class="section-subtitle">
+
+                        
+
+                    </div>
+
+
+                    <p class="placeholder-text">
+
+                        
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         OUR STORY
+    ================================================== -->
+
+    <section
+        class="gallery-section"
+        id="memories"
+    >
+
+        <div class="container reveal">
+
+
+            <div class="eyebrow">
+
+                OUR STORY
+
+            </div>
+
+
+            <h3 class="section-title">
+
+                Dil se likha tha aik aik harf hasnay ka dil kre to parh lena
+
+            </h3>
+
+
+            <div class="section-subtitle">
+
+              
+
+            </div>
+
+
+            <p class="placeholder-text gallery-intro">
+
+                
+
+            </p>
+
+
+            <div class="gallery">
+
+
+                <div class="gallery-item">
+
+                    <img
+                        src="memory-1.jpg"
+                        alt="Memory 1"
+                    >
+
+                </div>
+
+
+                <div class="gallery-item">
+
+                    <img
+                        src="memory-2.jpg"
+                        alt="Memory 2"
+                    >
+
+                </div>
+
+
+                <div class="gallery-item">
+
+                    <img
+                        src="memory-3.jpg"
+                        alt="Memory 3"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SMALL MEMORY GALLERY
+    ================================================== -->
+
+    <section class="small-gallery-section">
+
+        <div class="container reveal">
+
+            <div class="eyebrow">
+
+                Pata ni kia kia he dekh lena huh
+
+            </div>
+
+
+            <h2 class="section-title">
+
+                
+
+            </h2>
+
+
+            <div class="section-subtitle">
+
+                
+
+            </div>
+
+
+            <div class="small-gallery">
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-1.jpg"
+                        alt="Memory 1"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-2.jpg"
+                        alt="Memory 2"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-3.jpg"
+                        alt="Memory 3"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-4.jpg"
+                        alt="Memory 4"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-5.jpg"
+                        alt="Memory 5"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-6.jpg"
+                        alt="Memory 6"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-7.jpg"
+                        alt="Memory 7"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-8.jpg"
+                        alt="Memory 8"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-9.jpg"
+                        alt="Memory 9"
+                    >
+
+                </div>
+
+
+                <div class="small-gallery-item">
+
+                    <img
+                        src="small-10.jpg"
+                        alt="Memory 10"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FINAL SECTION
+    ================================================== -->
+
+    <section
+        class="final-section"
+        id="final"
+    >
+
+        <div class="container final-content reveal">
+             <div class="eyebrow">
+
+                I was making a list hehe
+
+            </div>
+
+
+            <div class="final-image">
+
+                <img
+                    src="final1.jpg"
+                    alt="Our favorite memory"
+                >
+
+            </div>
+
+
+            <div class="eyebrow">
+
+                THE END OF THIS STORY OR MAYBE THE BIGGINING OF ANOTHER ONE
+
+            </div>
+
+
+            <h2>
+
+                SORRY MERA BACHAAA
+
+            </h2>
+
+
+            <div class="protected-message">
+
+                <div class="protected-lock" id="protectedLock">
+
+                    <h3>
+                        KUCH UN KAHI BATAY
+                    </h3>
+
+                    <p>
+                        I wrote something pr ab mene password laga dia and
+                        seems like it's not meant for you...khairr. Enter the password to continue guess kr sko to parh lena ye me apko kabhi kabhi kahta and it has 4 letters.
+                    </p>
+
+                    <form id="finalPasswordForm">
+
+                        <input
+                            type="password"
+                            id="finalPassword"
+                            class="protected-input"
+                            placeholder="Enter password"
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button
+                            type="submit"
+                            class="protected-button"
+                        >
+                            Unlock my message
+                        </button>
+
+                        <div
+                            class="protected-error"
+                            id="finalPasswordError"
+                        ></div>
+
+                    </form>
+
+                </div>
+
+                <div class="protected-content" id="protectedContent">
+
+                    <p>
+```
+
 Asslamualikum esha salam its been two weeks shaid hamay aik dosray ko Janay hwe
 in the start ap mere liye aik customer thy pr jab apko janna to i started to love you
 me seedhi bat kru ga to save your and mine time me bhot busy rahta hu zindagy me
@@ -2331,7 +2499,7 @@ me to hu bhi koja i never saw you sahi se start me dekha tha status and bhul bhi
 maybe it's my first and last time in my life me kise ko apne dil ki bat kah rha and i know its too soon
 pr mera bacha me ni chahta meri sari efforts pani me bah jain me janna chahta hu
 k jis shaks k liye me efforts kr rha kia wo bhi mere liye krne ko tyar
-ni to being a gentlemen me apne rastay nikal jaon ga and will never come back pr ap order zaroor krna 
+ni to being a gentlemen me apne rastay nikal jaon ga and will never come back pr ap order zaroor krna
 i know its not easy for you pr eshuu zindagy moqa dety agay bharo we'll make beautiful future together
 a home where no one shouts at anyone where no smell of cigarettes where there will be only peace me and you jaanaa
 dunya ki her Khushi apk qamo me laanay ki koshish kru ga ye waday bas kahaniao me achay lagtay hein im a rational person
@@ -2344,420 +2512,422 @@ your answer will affect me either we'll cross pul sirat together and dunya se Ja
 ni to we'll never cross paths again ap mere liye aik achi yad rhein gy if your answer is yes reply this message ni to seen kr
 k chor dena jo chize jaha he wahi rhne dena no a single message after this me apka jawab smjh jaon ga
 ALLAH HAFZ FI AMANALLAH MERI PYARI ESHU
-                        </p>
+\</p>
 
-                    </div>
-
+```
                 </div>
-
-
-                <div class="closing-message">
-
-                    
-
-                </div>
-
 
             </div>
 
-        </section>
+
+            <div class="closing-message">
+
+                
+
+            </div>
+
+
+        </div>
+
+    </section>
 
 
 
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
 
-        <footer>
+    <footer>
 
-            Made with love · Rayyan Abdullah . BAYGANA
+        Made with love · Rayyan Abdullah . BAYGANA
 
-        </footer>
-
-
-    </div>
+    </footer>
 
 
+</div>
 
-    <!-- =====================================================
-         IMAGE LIGHTBOX
-    ====================================================== -->
 
-    <div
-        class="lightbox"
-        id="lightbox"
+
+<!-- =====================================================
+     IMAGE LIGHTBOX
+====================================================== -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+>
+
+    <span
+        class="lightbox-close"
+        id="lightboxClose"
+    >
+        &times;
+    </span>
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Expanded memory"
     >
 
-        <span
-            class="lightbox-close"
-            id="lightboxClose"
-        >
-            &times;
-        </span>
+</div>
 
-        <img
-            id="lightboxImage"
-            src=""
-            alt="Expanded memory"
-        >
 
-    </div>
 
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
 
+<script>
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
 
-    <script>
+    /* =================================================
+       LOGIN CREDENTIALS
+    ================================================= */
 
+    const LOGIN_USERNAME = "chanda";
 
-        /* =================================================
-           LOGIN CREDENTIALS
-        ================================================= */
+    const LOGIN_PASSWORD = "kick";
 
-        const LOGIN_USERNAME = "chanda";
 
-        const LOGIN_PASSWORD = "kick";
 
+    /* =================================================
+       LOGIN ELEMENTS
+    ================================================= */
 
+    const loginForm =
+        document.getElementById("loginForm");
 
-        /* =================================================
-           LOGIN ELEMENTS
-        ================================================= */
+    const loginScreen =
+        document.getElementById("loginScreen");
 
-        const loginForm =
-            document.getElementById("loginForm");
+    const website =
+        document.getElementById("website");
 
-        const loginScreen =
-            document.getElementById("loginScreen");
+    const loginError =
+        document.getElementById("loginError");
 
-        const website =
-            document.getElementById("website");
 
-        const loginError =
-            document.getElementById("loginError");
 
+    /* =================================================
+       LOGIN FUNCTION
+    ================================================= */
 
+    loginForm.addEventListener(
+        "submit",
+        function(event) {
 
-        /* =================================================
-           LOGIN FUNCTION
-        ================================================= */
+            event.preventDefault();
 
-        loginForm.addEventListener(
-            "submit",
-            function(event) {
 
-                event.preventDefault();
+            const username =
+                document
+                .getElementById("username")
+                .value
+                .trim();
 
 
-                const username =
-                    document
-                    .getElementById("username")
-                    .value
-                    .trim();
+            const password =
+                document
+                .getElementById("password")
+                .value;
 
 
-                const password =
-                    document
-                    .getElementById("password")
-                    .value;
+            if (
+                username === LOGIN_USERNAME &&
+                password === LOGIN_PASSWORD
+            ) {
 
+                loginError.textContent = "";
 
-                if (
-                    username === LOGIN_USERNAME &&
-                    password === LOGIN_PASSWORD
-                ) {
+                loginScreen.classList.add(
+                    "hidden"
+                );
 
-                    loginError.textContent = "";
+                document.body.classList.remove(
+                    "locked"
+                );
 
-                    loginScreen.classList.add(
-                        "hidden"
-                    );
-
-                    document.body.classList.remove(
-                        "locked"
-                    );
-
-                    setTimeout(
-                        function() {
-
-                            website.classList.add(
-                                "visible"
-                            );
-
-                        },
-                        300
-                    );
-
-                } else {
-
-                    loginError.textContent =
-                        "That doesn't seem to be the right key. Try again.";
-
-                }
-
-            }
-        );
-
-
-
-        /* =================================================
-           PROTECTED FINAL MESSAGE
-        ================================================= */
-
-        const FINAL_MESSAGE_PASSWORD = "hehe";
-
-        const finalPasswordForm =
-            document.getElementById("finalPasswordForm");
-
-        const finalPassword =
-            document.getElementById("finalPassword");
-
-        const finalPasswordError =
-            document.getElementById("finalPasswordError");
-
-        const protectedLock =
-            document.getElementById("protectedLock");
-
-        const protectedContent =
-            document.getElementById("protectedContent");
-
-
-        finalPasswordForm.addEventListener(
-            "submit",
-            function(event) {
-
-                event.preventDefault();
-
-                if (
-                    finalPassword.value === FINAL_MESSAGE_PASSWORD
-                ) {
-
-                    finalPasswordError.textContent = "";
-
-                    protectedLock.style.display = "none";
-
-                    protectedContent.classList.add(
-                        "unlocked"
-                    );
-
-                    finalPassword.value = "";
-
-                } else {
-
-                    finalPasswordError.textContent =
-                        "That password isn't right. Try again.";
-
-                    finalPassword.value = "";
-
-                    finalPassword.focus();
-
-                }
-
-            }
-        );
-
-
-        /* =================================================
-           SCROLL REVEAL
-        ================================================= */
-
-        const revealElements =
-            document.querySelectorAll(
-                ".reveal"
-            );
-
-
-        const observer =
-            new IntersectionObserver(
-
-                function(entries) {
-
-                    entries.forEach(
-                        function(entry) {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    "active"
-                                );
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-
-                {
-                    threshold: 0.12
-                }
-
-            );
-
-
-        revealElements.forEach(
-            function(element) {
-
-                observer.observe(element);
-
-            }
-        );
-
-
-
-        /* =================================================
-           HERO PARALLAX
-        ================================================= */
-
-        window.addEventListener(
-            "scroll",
-            function() {
-
-                const heroImage =
-                    document.querySelector(
-                        ".hero-image"
-                    );
-
-
-                if (!heroImage) return;
-
-
-                const scrollPosition =
-                    window.scrollY;
-
-
-                if (
-                    scrollPosition <
-                    window.innerHeight
-                ) {
-
-                    heroImage.style.transform =
-                        `translateY(${scrollPosition * 0.08}px)`;
-
-                }
-
-            }
-        );
-
-
-
-        /* =================================================
-           IMAGE LIGHTBOX
-        ================================================= */
-
-        const lightbox =
-            document.getElementById(
-                "lightbox"
-            );
-
-        const lightboxImage =
-            document.getElementById(
-                "lightboxImage"
-            );
-
-        const lightboxClose =
-            document.getElementById(
-                "lightboxClose"
-            );
-
-
-        const websiteImages =
-            document.querySelectorAll(
-                "#website img"
-            );
-
-
-        websiteImages.forEach(
-            function(image) {
-
-                image.addEventListener(
-                    "click",
+                setTimeout(
                     function() {
 
-                        lightboxImage.src =
-                            this.src;
-
-                        lightboxImage.alt =
-                            this.alt;
-
-                        lightbox.classList.add(
-                            "active"
+                        website.classList.add(
+                            "visible"
                         );
 
-                        document.body.style.overflow =
-                            "hidden";
+                    },
+                    300
+                );
+
+            } else {
+
+                loginError.textContent =
+                    "That doesn't seem to be the right key. Try again.";
+
+            }
+
+        }
+    );
+
+
+
+    /* =================================================
+       PROTECTED FINAL MESSAGE
+    ================================================= */
+
+    const FINAL_MESSAGE_PASSWORD = "hehe";
+
+    const finalPasswordForm =
+        document.getElementById("finalPasswordForm");
+
+    const finalPassword =
+        document.getElementById("finalPassword");
+
+    const finalPasswordError =
+        document.getElementById("finalPasswordError");
+
+    const protectedLock =
+        document.getElementById("protectedLock");
+
+    const protectedContent =
+        document.getElementById("protectedContent");
+
+
+    finalPasswordForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            if (
+                finalPassword.value === FINAL_MESSAGE_PASSWORD
+            ) {
+
+                finalPasswordError.textContent = "";
+
+                protectedLock.style.display = "none";
+
+                protectedContent.classList.add(
+                    "unlocked"
+                );
+
+                finalPassword.value = "";
+
+            } else {
+
+                finalPasswordError.textContent =
+                    "That password isn't right. Try again.";
+
+                finalPassword.value = "";
+
+                finalPassword.focus();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       SCROLL REVEAL
+    ================================================= */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    const observer =
+        new IntersectionObserver(
+
+            function(entries) {
+
+                entries.forEach(
+                    function(entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "active"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
 
                     }
                 );
 
+            },
+
+            {
+                threshold: 0.12
             }
+
         );
 
 
+    revealElements.forEach(
+        function(element) {
 
-        /* =================================================
-           CLOSE LIGHTBOX
-        ================================================= */
-
-        function closeLightbox() {
-
-            lightbox.classList.remove(
-                "active"
-            );
-
-            document.body.style.overflow =
-                "";
+            observer.observe(element);
 
         }
+    );
 
 
-        lightboxClose.addEventListener(
-            "click",
-            closeLightbox
-        );
+
+    /* =================================================
+       HERO PARALLAX
+    ================================================= */
+
+    window.addEventListener(
+        "scroll",
+        function() {
+
+            const heroImage =
+                document.querySelector(
+                    ".hero-image"
+                );
 
 
-        lightbox.addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    event.target === lightbox
-                ) {
-
-                    closeLightbox();
-
-                }
-
-            }
-        );
+            if (!heroImage) return;
 
 
-        document.addEventListener(
-            "keydown",
-            function(event) {
+            const scrollPosition =
+                window.scrollY;
 
-                if (
-                    event.key === "Escape" &&
-                    lightbox.classList.contains("active")
-                ) {
 
-                    closeLightbox();
+            if (
+                scrollPosition <
+                window.innerHeight
+            ) {
 
-                }
+                heroImage.style.transform =
+                    `translateY(${scrollPosition * 0.08}px)`;
 
             }
+
+        }
+    );
+
+
+
+    /* =================================================
+       IMAGE LIGHTBOX
+    ================================================= */
+
+    const lightbox =
+        document.getElementById(
+            "lightbox"
         );
 
-    </script>
+    const lightboxImage =
+        document.getElementById(
+            "lightboxImage"
+        );
 
-</body>
-</html>
+    const lightboxClose =
+        document.getElementById(
+            "lightboxClose"
+        );
+
+
+    const websiteImages =
+        document.querySelectorAll(
+            "#website img"
+        );
+
+
+    websiteImages.forEach(
+        function(image) {
+
+            image.addEventListener(
+                "click",
+                function() {
+
+                    lightboxImage.src =
+                        this.src;
+
+                    lightboxImage.alt =
+                        this.alt;
+
+                    lightbox.classList.add(
+                        "active"
+                    );
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =================================================
+       CLOSE LIGHTBOX
+    ================================================= */
+
+    function closeLightbox() {
+
+        lightbox.classList.remove(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    lightboxClose.addEventListener(
+        "click",
+        closeLightbox
+    );
+
+
+    lightbox.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === lightbox
+            ) {
+
+                closeLightbox();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Escape" &&
+                lightbox.classList.contains("active")
+            ) {
+
+                closeLightbox();
+
+            }
+
+        }
+    );
+
+</script>
+```
+
+\</body>
+\</html>
