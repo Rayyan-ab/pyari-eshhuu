@@ -1814,6 +1814,63 @@
 
     }
 
+
+    /* MOHABBAT POETRY REVEAL */
+    .poetry-reveal {
+        max-width: 760px;
+        margin: 38px auto 10px;
+        text-align: center;
+    }
+
+    .poetry-read-button {
+        padding: 13px 28px;
+        border: 1px solid #d4af37;
+        border-radius: 999px;
+        background: transparent;
+        color: #d4af37;
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: .12em;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .poetry-read-button:hover {
+        background: #d4af37;
+        color: #171416;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(212,175,55,.15);
+    }
+
+    .poetry-lines {
+        display: none;
+        margin: 28px auto 0;
+        padding: 26px 20px;
+        border: 1px solid rgba(212,175,55,.22);
+        border-radius: var(--radius);
+        background: rgba(212,175,55,.035);
+        color: #d4af37;
+        direction: rtl;
+        font-family: "Mirza", "Urdu Typesetting", serif;
+        font-size: clamp(21px, 3vw, 29px);
+        line-height: 2;
+        text-align: center;
+    }
+
+    .poetry-lines.visible {
+        display: block;
+        animation: poetryFadeIn .7s ease both;
+    }
+
+    .poetry-lines p {
+        margin: 5px 0;
+    }
+
+    @keyframes poetryFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
 </style>
 
 </head>
@@ -2055,7 +2112,26 @@
     <section class="meetups-section" id="meetups">
         <div class="container reveal">
             <div class="eyebrow">MULAQATEIN</div>
-            <h3 class="section-title">ملاقتیں</h3>
+            <h2 class="section-title">ملاقتیں</h2>
+            <div class="poetry-reveal">
+                <button
+                    class="poetry-read-button"
+                    id="poetryReadButton"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="mohabbatPoetry"
+                >Press to Read</button>
+
+                <div class="poetry-lines" id="mohabbatPoetry" lang="ur" dir="rtl">
+                    <p>دمکتے ہیں کسی کی چشمِ حیراں میں</p>
+                    <p>ملاقاتیں جو ہوتی ہیں جمالِ ابر و باراں میں</p>
+                    <p>یہ نا آباد وقتوں میں دلِ ناشاد میں ہوگی</p>
+                    <p>محبت اب نہیں ہوگی، یہ کچھ دن بعد میں ہوگی</p>
+                    <p>گزر جائیں گے جب یہ دن، یہ ان کی یاد میں ہوگی</p>
+                </div>
+            </div>
+
+            
             <div class="meetups-gallery">
                 <div class="meetup-item"><img src="meetup-1.jpg" alt="meetup-1"></div>
                 <div class="meetup-item"><img src="meetup-2.jpg" alt="meetup-2"></div>
@@ -3025,6 +3101,19 @@ ALLAH HAFZ FI AMANALLAH MERI PYARI ESHU
 
         }
     );
+
+
+    // Show or hide the golden Urdu poetry when the button is pressed.
+    const poetryReadButton = document.getElementById("poetryReadButton");
+    const mohabbatPoetry = document.getElementById("mohabbatPoetry");
+
+    if (poetryReadButton && mohabbatPoetry) {
+        poetryReadButton.addEventListener("click", function () {
+            const isVisible = mohabbatPoetry.classList.toggle("visible");
+            poetryReadButton.textContent = isVisible ? "Hide Poetry" : "Press to Read";
+            poetryReadButton.setAttribute("aria-expanded", String(isVisible));
+        });
+    }
 
 </script>
 
