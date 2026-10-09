@@ -1027,6 +1027,41 @@
     }
 
 
+    /* MULAQATEIN / MEETUPS GALLERY */
+    .meetups-section { text-align: center; }
+    .meetups-gallery {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 20px;
+        margin-top: 45px;
+    }
+    .meetup-item {
+        aspect-ratio: 4 / 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,.06);
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, #292124, #211b1d);
+        color: var(--muted);
+        font-family: var(--serif);
+        font-size: 20px;
+        transition: var(--transition);
+    }
+    .meetup-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,.35);
+    }
+    .meetup-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform .5s ease;
+    }
+    .meetup-item img:hover { transform: scale(1.04); }
+
     /* =====================================================
        OUR STORY GALLERY
     ===================================================== */
@@ -1578,6 +1613,11 @@
     ===================================================== */
 
     @media (max-width: 800px) {
+        .meetups-gallery {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
 
         .navbar {
 
@@ -1885,6 +1925,8 @@
             رَوضَتُنا
         </a>
 
+        <a href="#meetups">ملاقتیں</a>
+
         <a href="#blind-eye">
             The blind eye
         </a>
@@ -2008,6 +2050,29 @@
 
     </section>
 
+
+
+    <!-- =================================================
+         MULAQATEIN / MEETUPS
+    ================================================== -->
+    <section class="meetups-section" id="meetups">
+        <div class="container reveal">
+            <div class="eyebrow">MULAQATEIN</div>
+            <h3 class="section-title">ملاقتیں</h3>
+            <div class="meetups-gallery">
+                <div class="meetup-item"><img src="meetup-1.jpg" alt="meetup-1"></div>
+                <div class="meetup-item"><img src="meetup-2.jpg" alt="meetup-2"></div>
+                <div class="meetup-item"><img src="meetup-3.jpg" alt="meetup-3"></div>
+                <div class="meetup-item"><img src="meetup-4.jpg" alt="meetup-4"></div>
+                <div class="meetup-item"><img src="meetup-5.jpg" alt="meetup-5"></div>
+                <div class="meetup-item"><img src="meetup-6.jpg" alt="meetup-6"></div>
+                <div class="meetup-item"><img src="meetup-7.jpg" alt="meetup-7"></div>
+                <div class="meetup-item"><img src="meetup-8.jpg" alt="meetup-8"></div>
+                <div class="meetup-item"><img src="meetup-9.jpg" alt="meetup-9"></div>
+                <div class="meetup-item"><img src="meetup-10.jpg" alt="meetup-10"></div>
+            </div>
+        </div>
+    </section>
 
 
     <!-- =================================================
